@@ -54,7 +54,10 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 #def profile(request):
 #    return render(request, 'profile.html')
 
-#LIKE
+
+
+
+#LIKE/DISLIKE
 
 class Addlike(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):

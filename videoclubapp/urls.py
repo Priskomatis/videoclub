@@ -21,4 +21,5 @@ urlpatterns= [
     re_path('profile/', views.profile, name='profile'),
     path('<int:pk>/like', Addlike.as_view(), name='like'),
     path('<int:pk>/dislike', AddDislike.as_view(), name='dislike'),
+    path('mymovies', views.addMovies, name='mymovies'),
 ]

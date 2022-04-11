@@ -38,6 +38,8 @@ class Profile(models.Model):
                                                                                     #When the user updates their profile image, the image they uploaded will be stored in this folder.
     bio = models.TextField()
 
+    movies = models.ManyToManyField(Movie, blank=True, default="")
+
     def __str__(self):
         return self.user.username       #We display the user's username in the admin interface
 
