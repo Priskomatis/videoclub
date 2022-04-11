@@ -28,9 +28,6 @@ class Movie(models.Model):
     likes = models.ManyToManyField(User, blank=True, related_name="likes")          #any users can like many posts.
     dislikes = models.ManyToManyField(User, blank=True, related_name="dislikes")
 
-
-
-
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
