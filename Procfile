@@ -1,1 +1,1 @@
-web: gunicorn videoclub.wsgi
+web: gunicorn --chdir videoclub videoclub.wsgi:application --log-file - --log-level debug
