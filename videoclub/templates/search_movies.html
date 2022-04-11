@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+    
+<h1>You have searched for..</h1>
+
+{% for movie in results %}
+
+    <h2 id="search_title">
+    <a  href = "{% url 'movie_detail' movie.id %}" class="link-light"> {{movie.title}} </a>
+    </h2>
+
+{% endfor %}
+
+    
+
+{% endblock %}

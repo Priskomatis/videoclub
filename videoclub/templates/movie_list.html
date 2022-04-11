@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<h1> These are my movies: </h1>
+    <ul>
+        {% for movie in movies %}
+            <li>
+                <a href = "{% url 'movie_detail' movie.id %}"> {{movie.title}} </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

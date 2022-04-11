@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+
+<h1>You have been logged out!</h1> <br>
+<a href = "{% url 'login' %}" class = "btn btn-secondary"> Sign in again</a>
+
+{% endblock %}

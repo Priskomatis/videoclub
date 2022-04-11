@@ -1,0 +1,61 @@
+
+#movie_details{
+    text-align: center;
+}
+
+body{
+     background-image: url('/static/img/bg1.png');
+     background-size: cover;
+}
+
+#about_title, #about_author{
+    text-align: center;
+}
+
+#search_title{
+    text-align: center;
+
+
+}
+
+#login{
+    text-align: center;
+}
+
+#register{
+    text-align: left;
+    margin: 0 auto;
+    width: 600px;
+}
+
+
+/*STAR RATING SYSTEM*/
+
+.starcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+}
+
+.stars input {
+    display: none;
+}
+
+.stars i {
+    transition: all .3s;
+}
+
+.stars i:hover {
+    transform: scale(1.1) rotate(5deg);
+    cursor: pointer;
+}
+
+.stars :checked~label {
+    color: gold;
+}
