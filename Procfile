@@ -1,1 +1,1 @@
-web: gunicorn --chdir videoclub videoclub.wsgi:application --log-file - --log-level debug
+web: python manage.py runserver 0.0.0.0:5000
