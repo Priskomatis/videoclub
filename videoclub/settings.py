@@ -15,7 +15,7 @@ import os
 import django_heroku
 
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-^05pte8%crve97vae5d2c@@un5q&vacw00(#%hz^w%wo^2_rl2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['videoclubjason.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
