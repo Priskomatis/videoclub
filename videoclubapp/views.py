@@ -1,11 +1,13 @@
 from email import message
 from msilib.schema import ListView
-from re import template
+from multiprocessing import context
+from re import L, template
 from turtle import title
 from typing import List
+from xmlrpc.client import FastParser
 from django import http
-from django.shortcuts import render
-from django.http import Http404, HttpResponse, Http404
+from django.shortcuts import get_object_or_404, render
+from django.http import Http404, HttpResponseRedirect, Http404
 
 import videoclubapp
 from .models import User, Movie
@@ -22,6 +24,8 @@ from .forms import RegisterForm, UpdateProfileForm, UpdateUserForm
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.template.loader import render_to_string
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 
 # Create your views here.
@@ -49,6 +53,73 @@ from django.contrib.messages.views import SuccessMessageMixin
 #@login_required
 #def profile(request):
 #    return render(request, 'profile.html')
+
+#LIKE
+
+class Addlike(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+
+        post = Movie.objects.get(pk=pk) #We grab the movie we want to see the likes/dislikes
+
+        is_dislike = False                      #We will check if the user has ALREADY disliked the movie before moving forward.
+                                                #If they have, then when they user will like the movie, we will remove them from the dislike list.
+                                                #We basically check for both cases at
+
+        for dislike in post.dislikes.all():
+            if dislike == request.user:
+                is_dislike = True
+                break
+
+        if is_dislike:
+            post.dislikes.remove(request.user)
+
+        is_like = False                         #Since the user hasn't like the post already.
+
+        for like in post.likes.all():           #First we loop through the likes to see if the user has already liked the post, if they haven't then we add them
+            if like == request.user:
+                is_like = True
+                break
+
+        if not is_like:                         #we add the user to the list.
+            post.likes.add(request.user)
+
+        if is_like:                             #If the user double likes the post, that undos the like, so we remove the user from the list of users that has liked this post.
+            post.likes.remove(request.user)     #request.user to check who the user is.
+
+        next = request.POST.get('next', '/')
+        return HttpResponseRedirect(next)
+
+class AddDislike(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        post = Movie.objects.get(pk=pk)
+
+        is_like = False                         #We will check if the user has ALREADY liked the movie.
+
+        for like in post.likes.all():
+            if like == request.user:
+                is_like = True
+                break
+
+        if is_like:
+            post.likes.remove(request.user)
+
+        is_dislike = False                      #Same as with the AddLike class.
+
+        for dislike in post.dislikes.all():
+            if dislike == request.user:
+                is_dislike = True
+                break
+
+        if not is_dislike:                      #We add or remove the user from/in the list based on if they have disliked the movie.
+            post.dislikes.add(request.user)
+
+        if is_dislike:
+            post.dislikes.remove(request.user)
+
+        next = request.POST.get('next', '/')
+        return HttpResponseRedirect(next)
+
+
 
 
 
@@ -144,10 +215,10 @@ def listOfMovies(request):
 
 
 def search(request):
-    if request.method=="POST":
+    if request.method=="POST":                  #Its a post method since the user sends data.
         query = request.POST.get('name', None)
         if query:
-            results = Movie.objects.filter(title__contains=query)
+            results = Movie.objects.filter(title__contains=query) or Movie.objects.filter(genre__contains=query)    #The user can search a movie by name or by its genre.
             return render(request, 'search_movies.html', {"results":results})
 
     return render(request, 'search_movies.html')

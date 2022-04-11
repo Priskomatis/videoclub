@@ -13,11 +13,12 @@ urlpatterns= [
     path('about', views.about, name="about" ),
     path('movielist', views.listOfMovies),
     path('search', views.search, name='search'),
-    path('autorized', views.authorized, name='authorized'),
+    path('autorized', views.authorized, name='authorized'),             #Only authorized users can enter this admin interface.
     #path('signup', views.SignUpView.as_view(), name='signup'),
     path('register/', RegisterView.as_view(), name='register'),
     path('login', views.LoginInterfaceView.as_view(), name='login'),
     path('logout', views.LogoutInterfaceView.as_view(), name='logout'),
     re_path('profile/', views.profile, name='profile'),
-    
+    path('<int:pk>/like', Addlike.as_view(), name='like'),
+    path('<int:pk>/dislike', AddDislike.as_view(), name='dislike'),
 ]

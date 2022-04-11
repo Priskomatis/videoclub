@@ -25,6 +25,11 @@ class Movie(models.Model):
 
     image = models.ImageField(upload_to='img', default="" )
 
+    likes = models.ManyToManyField(User, blank=True, related_name="likes")          #any users can like many posts.
+    dislikes = models.ManyToManyField(User, blank=True, related_name="dislikes")
+
+
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -44,3 +49,5 @@ class Profile(models.Model):
         img = Image.open(self.avatar.path)
         img = img.convert('RGB')            #Image.convert is from the PIL library which returns a copy of the image after the conversion
         img.save('audacious.jpg')
+
+

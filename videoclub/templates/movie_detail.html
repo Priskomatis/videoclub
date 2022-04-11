@@ -13,7 +13,42 @@
 
 
     <h3>
+        
         <div id="movie_details">
+
+        <!--Like System-->
+
+
+        {% if user.is_authenticated %}
+        <div class="d-flex flex-row" style="text-align: center;">
+            <form method="POST" action="{% url 'like' movie.pk %}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
+                    <i class=" far fa-thumbs-up"><span>
+                        {{ movie.likes.all.count }}
+                    </span></i>
+                </button>
+            </form>
+
+            <form method="POST" action="{% url 'dislike' movie.pk %}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
+                    <i class=" far fa-thumbs-down"> <span>
+                        {{ movie.dislikes.all.count }}
+                    </span></i>
+                </button>
+            </form>
+
+            
+
+
+
+
+
+            </div>
+            {% endif %}
             <!--<img src='/static/img/{{movie.image}}'> -->
             {{ movie.title|capfirst}}
             <p>Rating: {{movie.rating}}/100</p>
@@ -22,31 +57,34 @@
             <p>Description: {{movie.description}}</p>
             <img src="{{ movie.image.url }}" style="width: 650px; height: 650px;"/>
 
+            
+            
 
-            <!--STAR RATING SYSTEM-->
 
-            <div class="starcontainer">
+            
 
-                <div class="rating">
-                    <form class='stars'>
-                        <input type="radio" name='stars' value='5' id='five' class='star'>
-                        <label for="five"><i class='fa fa-star'></i></label>
-                        <input type="radio" name='stars' value='4' id='four' class='star'>
-                        <label for="four"><i class='fa fa-star'></i></label>
-                        <input type="radio" name='stars' value='3' id='three' class='star'>
-                        <label for="three"><i class='fa fa-star'></i></label>
-                        <input type="radio" name='stars' value='2' id='two' class='star'>
-                        <label for="two"><i class='fa fa-star'></i></label>
-                        <input type="radio" name='stars' value='1' id='one' class='star' checked>
-                        <label for="one"><i class='fa fa-star '></i></label>
-                    </form>
-                </div>
-            </div>
+
+
+
+
+
+
+
+
+
+
+        
 
 
 
     </h3>
 
 </div>
+
+<script>
+    $('input[name="radio"]').prop("checked", false);
+
+</script>
+
 
 {% endblock %}
