@@ -27,6 +27,15 @@ body{
     margin: 0 auto;
     width: 600px;
 }
+#colophon {
+    bottom: 00;
+    color: black;
+    height: 4em;
+    left: 0;
+    position: relative; 
+    font-weight: 700;
+    width:100%;
+ }
 
 
 /*STAR RATING SYSTEM*/

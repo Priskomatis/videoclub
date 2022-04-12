@@ -51,9 +51,9 @@
 
                     <!---------- SEARCH ------------>
 
-                    <form action="{% url 'search' %}" method="POST">
+                    <form action="{% url 'search' %}" method="POST" style="text-align: center">
                         {% csrf_token %}
-                        <input type = "text" name="name">
+                        <input type = "text" name="name" placeholder="Movie/category">
                         <input type="submit" name="submit" value="Search">
                     </form>
 
@@ -84,8 +84,10 @@
     {% block content %}
     {% endblock content %}
 
+
     <footer id="colophon">
-        <div class="inner-wrap" style="bottom: 0; bottom: 0; width: 100%; height: 2.5rem;">
+    <hr>
+        <div class="inner-wrap">
             Video Club Magic is created by Jason Priskomatis for the mere purpose of training and project delivery
             
             <br>

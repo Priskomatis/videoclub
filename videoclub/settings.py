@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_filters',
     'videoclubapp.apps.UserConfig',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -155,3 +156,8 @@ LOGIN_URL = 'login'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 django_heroku.settings(locals())
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}

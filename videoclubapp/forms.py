@@ -12,7 +12,10 @@ from .models import Profile
 SEX_CHOICES = [('M', 'MALE'), ('F', 'FEMALE'),('O', 'OTHER')]
 
 class RegisterForm(UserCreationForm):
+
     SEX_CHOICES = [('M', 'MALE'), ('F', 'FEMALE'),('O', 'OTHER')]
+    GENRE_CHOICES = [('ACTION', 'ACTION'), ('DRAMA', 'DRAMA'),('MYSTERY', 'MYSTERY')]
+
     # fields we want to include and customize in our form
     first_name = forms.CharField(max_length=100, required=True, widget=forms.TextInput())
 
@@ -23,6 +26,8 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True, widget=forms.TextInput())
 
     sex = forms.CharField(max_length=1, required=True, widget=forms.Select(choices=SEX_CHOICES))
+
+    favGenre = forms.CharField(max_length=7, required=True, widget=forms.Select(choices=GENRE_CHOICES))
 
     password1 = forms.CharField(max_length=50, required=True, widget=forms.PasswordInput())
 

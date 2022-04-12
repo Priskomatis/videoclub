@@ -2,6 +2,7 @@ from email import message
 from msilib.schema import ListView
 from multiprocessing import context
 from re import L, template
+import re
 from turtle import title
 from typing import List
 from xmlrpc.client import FastParser
@@ -183,7 +184,7 @@ class RegisterView(View):
             username = form.cleaned_data.get('username')                    #Just a message to let the user know that their account was successfully generated.
             messages.success(request, f'Account created for {username}')
 
-            return redirect('home')                                         #Directs the user to the home page of our website after their signed in.
+            return redirect('login')                                         #Directs the user to the home page of our website after their signed in.
         return render(request, self.template_name, {'form': form})
 
 
