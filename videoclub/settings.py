@@ -13,7 +13,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 import django_heroku
-
+from django.utils.translation import gettext_lazy as _
+import django
+from django.utils.encoding import force_str
+django.utils.encoding.force_text = force_str
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
